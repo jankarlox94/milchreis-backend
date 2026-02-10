@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Patch, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Body,
+  Param,
+  Logger,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 
 @Controller('orders')
@@ -7,6 +15,8 @@ export class OrdersController {
 
   @Post()
   async create(@Body() body: any) {
+    const logger = new Logger();
+    logger.debug(`This application is on ordersController `);
     return this.ordersService.createOrder(body);
   }
 

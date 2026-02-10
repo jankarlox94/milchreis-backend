@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
@@ -14,6 +14,8 @@ export class SupabaseService {
   }
 
   getClient() {
+    const logger = new Logger();
+    logger.debug(`This application is on supabase service`);
     return this.supabase;
   }
 }
