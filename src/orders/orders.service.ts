@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable()
@@ -7,9 +7,20 @@ export class OrdersService {
 
   async createOrder(orderData: any) {
     const client = this.supabaseService.getClient();
+    const logger = new Logger();
+    logger.debug(
+      `this is in createOrder>service>orderData${JSON.stringify(orderData, null, 2)}, and this is the cart:${JSON.stringify(orderData.cart, null, 2)}`,
+    );
+    debugger;
     const { data, error } = await client
       .from('orders')
-      .insert([orderData])
+      .insert({
+        items: orderData['items'],
+        total_price: orderData['total_price'],
+        status: orderData['status'],
+        customer_name: orderData['customer_name'],
+        additional_instructions: orderData['additional_instructions'],
+      })
       .select();
 
     if (error) throw new Error(error.message);

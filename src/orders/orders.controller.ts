@@ -16,7 +16,9 @@ export class OrdersController {
   @Post()
   async create(@Body() body: any) {
     const logger = new Logger();
-    logger.debug(`This application is on ordersController `);
+    logger.debug(
+      `This application is on ordersController: ${JSON.stringify(body, null, 2)} `,
+    );
     return this.ordersService.createOrder(body);
   }
 
